@@ -23,7 +23,10 @@
 
 package multiplier
 
-import "context"
+import (
+	"context"
+	"log"
+)
 
 type multiplierServer struct {
 }
@@ -33,12 +36,15 @@ func (s *multiplierServer) MultiplyFloat(ctx context.Context, m *MultiplyFloatMe
 	a := m.GetA()
 	b := m.GetB()
 
+	log.Printf("recieved RPC message with a=%v and b=%v", a, b)
+
 	r := a * b
+	log.Printf("returning result %v", r)
 	return &MultiplyFloatResult{
 		R: &r,
 	}, nil
 }
 
-func GetServer() *multiplierServer{
+func GetServer() *multiplierServer {
 	return &multiplierServer{}
 }

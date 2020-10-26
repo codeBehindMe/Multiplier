@@ -23,32 +23,12 @@
 
 package multiplier
 
-import (
-	"context"
-	"log"
-)
+import "testing"
 
-type multiplierServer struct {
-}
-
-func multiplyFloat(a, b float32) float32 {
-	return a * b
-}
-
-func (s *multiplierServer) MultiplyFloat(ctx context.Context, m *MultiplyFloatMessage) (*MultiplyFloatResult, error) {
-
-	a := m.GetA()
-	b := m.GetB()
-
-	log.Printf("recieved RPC message with a=%v and b=%v", a, b)
-
-	r := multiplyFloat(a, b)
-	log.Printf("returning result %v", r)
-	return &MultiplyFloatResult{
-		R: &r,
-	}, nil
-}
-
-func GetServer() *multiplierServer {
-	return &multiplierServer{}
+func TestMultiplyFloat(t *testing.T){
+	var a float32 = 2
+	var b float32 = 3
+	if multiplyFloat(a,b) != 6{
+		t.Errorf("Multiply floats failed")
+	}
 }

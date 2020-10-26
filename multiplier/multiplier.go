@@ -31,6 +31,10 @@ import (
 type multiplierServer struct {
 }
 
+func multiplyFloat(a, b float32) float32 {
+	return a * b
+}
+
 func (s *multiplierServer) MultiplyFloat(ctx context.Context, m *MultiplyFloatMessage) (*MultiplyFloatResult, error) {
 
 	a := m.GetA()
@@ -38,7 +42,7 @@ func (s *multiplierServer) MultiplyFloat(ctx context.Context, m *MultiplyFloatMe
 
 	log.Printf("recieved RPC message with a=%v and b=%v", a, b)
 
-	r := a * b
+	r := multiplyFloat(a, b)
 	log.Printf("returning result %v", r)
 	return &MultiplyFloatResult{
 		R: &r,
